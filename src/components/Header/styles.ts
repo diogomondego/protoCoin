@@ -11,7 +11,7 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const Content = styled.View`
-  padding: 10px 0;
+  padding: 15px 0;
 `;
 
 export const HeaderLogo = styled.Image``;

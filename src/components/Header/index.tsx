@@ -4,7 +4,6 @@ import { StatusBar } from 'expo-status-bar';
 import { Container, Content, HeaderLogo } from './styles';
 
 import logo from '../../assets/logo.png';
-import colors from '../../utils/colors';
 
 export default function Header () {
   return (
