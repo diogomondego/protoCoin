@@ -1,32 +1,38 @@
 import { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
+
 import Header from "../../components/Header";
+import Row from "../../components/Row";
+
 import { useCoin } from "../../hooks/coin";
+
 import api from "../../services/api";
 import colors from "../../utils/colors";
 import { CoinData } from "../../utils/types";
-import { Container, Content, Description, Title, LoadingView, ContentHeader } from "./styles";
+
+import { Container, Content, Description, Title, LoadingView, ContentHeader, HeaderList, SeparatorList } from "./styles";
 
 export default function Home() {
   const { coins, setCoins } = useCoin()
   const [loading, setLoading] = useState(false)
 
   // Renderizar lista de coins
-  function renderList(item: CoinData) {
+  function _renderList(item: CoinData, key: number) {
     return (
-      <Description>{item.symbol}</Description>
+      <TouchableOpacity>
+        <Row item={item} number={key} />
+      </TouchableOpacity>
     )
   }
 
   // Renderizar lista vazia de coins
-  function loadingList() {
+  function _loadingList() {
     return (
       loading &&
         <LoadingView>
-          <ActivityIndicator color={colors.gray_200} size='large' />
+          <ActivityIndicator color={colors.text} size='large' />
           <Title>Loading coins...</Title>
         </LoadingView>
-        
     )
   }
 
@@ -55,14 +61,19 @@ export default function Home() {
           <Title>Nosso Catálogo</Title>
           <Description>Lista de Criptomoedas disponíveis para você</Description>
         </ContentHeader>
+        <HeaderList>
+          <Row header />
+        </HeaderList>
         <FlatList
           data={coins}
           keyExtractor={item => item.symbol}
-          renderItem={({ item }) => renderList(item)}
-          ListEmptyComponent={loadingList}
+          renderItem={({ item, index }) => _renderList(item, index)}
+          ItemSeparatorComponent={() => <SeparatorList />}
+          ListEmptyComponent={_loadingList}
           contentContainerStyle={{
             flexGrow: 1,
           }}
+          showsVerticalScrollIndicator={false}
         />
       </Content>
     </Container>

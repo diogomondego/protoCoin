@@ -29,3 +29,13 @@ export const LoadingView = styled.View`
   align-items: center;
   flex: 1;
 `;
+
+export const HeaderList = styled.View`
+  padding-bottom: 10px;
+`;
+
+export const SeparatorList = styled.View`
+  border-bottom-color: ${colors.gray_700};
+  border-bottom-width: 1px;
+  width: 70%;
+`
