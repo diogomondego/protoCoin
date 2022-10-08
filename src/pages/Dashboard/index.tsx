@@ -12,7 +12,7 @@ import { CoinData } from "../../utils/types";
 
 import { Container, Content, Description, Title, LoadingView, ContentHeader, HeaderList, SeparatorList } from "./styles";
 
-export default function Home() {
+const Dashboard: React.FC = () => {
   const { coins, setCoins } = useCoin()
   const [loading, setLoading] = useState(false)
 
@@ -31,7 +31,7 @@ export default function Home() {
       loading &&
         <LoadingView>
           <ActivityIndicator color={colors.text} size='large' />
-          <Title>Loading coins...</Title>
+          <Title>Carregando...</Title>
         </LoadingView>
     )
   }
@@ -79,3 +79,5 @@ export default function Home() {
     </Container>
   );
 }
+
+export default Dashboard

@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import {
   Platform,
@@ -30,6 +31,7 @@ const LogIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
   // const { signIn } = useAuth();
 
@@ -48,6 +50,7 @@ const LogIn: React.FC = () => {
           abortEarly: false,
         });
 
+        navigation.navigate('Dashboard')
       } catch (err: any) {
         setLoading(false);
         if (err instanceof Yup.ValidationError) {
