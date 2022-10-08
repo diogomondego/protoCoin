@@ -1,16 +1,14 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 
-import { Container, Content, HeaderLogo } from './styles';
+import { Container, Content } from './styles';
 
-import logo from '../../assets/logo.png';
+import Logo from '../Logo';
 
 export default function Header () {
   return (
     <Container>
-      <StatusBar style='light' />
       <Content>
-        <HeaderLogo source={logo} resizeMode='cover' />
+        <Logo />
       </Content>
     </Container>
   );
