@@ -21,6 +21,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import Logo from '../../components/Logo';
 import Button from '../../components/Button';
 import colors from '../../utils/colors';
+import { useAuth } from '../../hooks/auth';
 
 interface SignInFormData {
   email: string;
@@ -33,7 +34,7 @@ const LogIn: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  // const { signIn } = useAuth();
+  const { signUp } = useAuth();
 
   const handleSignIn = useCallback(
     async (data: SignInFormData) => {
@@ -50,6 +51,7 @@ const LogIn: React.FC = () => {
           abortEarly: false,
         });
 
+        await signUp(data)
         navigation.navigate('Dashboard')
       } catch (err: any) {
         setLoading(false);
@@ -59,18 +61,19 @@ const LogIn: React.FC = () => {
           if(errors.email){
             Toast.show({
               type: 'error',
-              text1: 'Favor verifique seu Email',
+              text1: 'Favor verifique seu e-mail',
             }); 
           }else if(errors.password){
             Toast.show({
               type: 'error',
-              text1: 'Favor verifique sua Senha',
+              text1: 'Favor verifique sua senha',
+              text2: 'Sua senha deve ter no mínimo 6 caracteres',
             }); 
           }
         } else {
           Toast.show({
-            type: 'cancel',
-            text1: err.response.data.message,
+            type: 'error',
+            text1: err.message,
           });
         }
       }
